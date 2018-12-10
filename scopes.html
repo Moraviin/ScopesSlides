@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+
+    <title>reveal.js</title>
+
+    <link rel="stylesheet" href="css/reveal.css" />
+    <link rel="stylesheet" href="css/theme/black.css" />
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="lib/css/zenburn.css" />
+
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement("link");
+      link.rel = "stylesheet";
+      link.type = "text/css";
+      link.href = window.location.search.match(/print-pdf/gi)
+        ? "css/print/pdf.css"
+        : "css/print/paper.css";
+      document.getElementsByTagName("head")[0].appendChild(link);
+    </script>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section>
+          <h1>JS SCOPE</h1>
+          <p><small>Created by Vladimir Zubovich</small></p>
+        </section>
+        <section>
+          <h2>What is it scope ?</h2>
+          <br />
+          <img
+            width="700"
+            height="300"
+            data-src="img/scope.jpeg"
+            alt="crossbow-scopes"
+          />
+        </section>
+        <section>
+          <section>
+            <h2>JavaScript Function Scope</h2>
+            <p>In JavaScript there are two types of scope:</p>
+            <ul>
+              <li>Global scope</li>
+              <li>Local scope</li>
+            </ul>
+          </section>
+          <section>
+            <h2>Local scope</h2>
+            <pre><code class="hljs">
+function myFunction() {
+  var scope = 'local';
+  console.log(scope); // local
+}
+console.log(scope); // ERROR
+			</code></pre>
+          </section>
+          <section>
+            <h2>Global scope</h2>
+            <pre><code class="hljs">
+var scope = 'global';
+function myFunction() {
+  console.log(scope); // global
+}
+console.log(scope); // global
+				</code></pre>
+          </section>
+          <section>
+            <h2>Automatically Global</h2>
+            <p>
+              If you assign a value to a variable that has not been declared, it
+              will automatically become a GLOBAL variable.
+            </p>
+            <pre><code class="hljs">
+myFunction();
+console.log(scope); // hi
+function myFunction() {
+  scope = 'hi';
+}		 
+		</code></pre>
+          </section>
+          <section>
+            <h2>Global scope in HTML</h2>
+            <pre><code class="hljs">
+var awesomeVariable = 'global';
+console.log(window.awesomeVariable);// global
+			</code></pre>
+          </section>
+		</section>
+		<section>
+        <section>
+          <h2>Nested variables</h2>
+          <pre><code class="hljs">
+function myFunction() {
+  var welcome = ' O, hi';
+  function nestedFunction() {
+    var user = ' Mark';
+    console.log(welcome + user);
+  }
+  nestedFunction(); // O, hi Mark
+}
+			</code></pre>
+        </section>
+        <section>
+          <h2>Shadowing function</h2>
+          <pre><code class="hljs">
+function myFunction() {
+  var welcome = ' O, hi';
+  function nestedFunction() {
+	var welcome = 'Welcome';
+	var user = ' Mark';
+	console.log(welcome + user);
+  }
+  nestedFunction(); // Welcome Mark
+}
+			</code></pre>
+		</section>
+		</section>
+        <section>
+          <section>
+            <h2>Hoisting</h2>
+            <p>
+              Hoisting is JavaScript's default behavior of moving all
+              declarations to the top of the current scope.
+            </p>
+            <br />
+            <pre><code class="hljs">
+console.log('something unnecessary');
+var up = 'value';
+		  </code></pre>
+            <pre><code class="hljs">
+var up;
+console.log('something unnecessary');
+up = 'value';
+		  </code></pre>
+          </section>
+          <section>
+            <h2>Hoisting + Shadowing</h2>
+            <pre><code class="hljs">
+function myFunction() {
+  var welcome = ' O, hi';
+  function nestedFunction() {
+    var user = ' Mark';
+    console.log(welcome + user);
+    var welcome = "You're welcome" 
+  }
+  nestedFunction(); // undefined Mark
+}				
+			</code></pre>
+          </section>
+          <section>
+            <h2>Be carefull</h2>
+            <p>
+              <span style="color:aqua">let</span> and
+              <span style="color:aqua">const</span> are NOT hoisted
+            </p>
+          </section>
+        </section>
+        <section>
+          <h2>Let and Const</h2>
+          <p>
+            ES2015 introduced two important new JavaScript keywords: let and
+            const.
+          </p>
+          <p>
+            These two keywords provide Block Scope variables (and constants) in
+            JavaScript.
+          </p>
+        </section>
+      </div>
+    </div>
+
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
+
+    <script>
+      // More info about config & dependencies:
+      // - https://github.com/hakimel/reveal.js#configuration
+      // - https://github.com/hakimel/reveal.js#dependencies
+      Reveal.initialize({
+        dependencies: [
+          { src: "plugin/markdown/marked.js" },
+          { src: "plugin/markdown/markdown.js" },
+          { src: "plugin/notes/notes.js", async: true },
+          {
+            src: "plugin/highlight/highlight.js",
+            async: true,
+            callback: function() {
+              hljs.initHighlightingOnLoad();
+            }
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>
